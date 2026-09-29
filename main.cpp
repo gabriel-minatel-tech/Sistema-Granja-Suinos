@@ -32,46 +32,47 @@ void cadastrarSuino(T_suino vetor[], int *total) {
         cout << "\n ID: ";
         cin >> vetor[*total].ID;
         
-        cout << "\n Raï¿½a: ";
+        cout << "\n Raca: ";
         cout << "\n 1 - Landrace";
         cout << "\n 2 - Large White";
         cout << "\n 3 - Duroc";
         cout << "\n 4 - Outra";
-        cout << "\n Cï¿½d. da raï¿½a: ";
+        cout << "\n Informe a raca: ";
         cin >> vetor[*total].raca;
         
         while(vetor[*total].raca < 1 || vetor[*total].raca > 4) {
-            cout << "Raï¿½a Invï¿½lida - Digite Novamente: ";
+            cout << "Raca Invalida - Digite Novamente: ";
             cin >> vetor[*total].raca;
         }
         
         cout << "\n Idade do Animal (em anos): ";
         cin >> vetor[*total].idade;
-        while(vetor[*total].idade > -1) {
-            cout << "Idade Invï¿½lida - Digite Novamente: ";
+        while(vetor[*total].idade < 0) {
+            cout << "Idade Invalida - Digite Novamente: ";
             cin >> vetor[*total].idade;
         }
         
         cout << "\n Peso do Animal (kg): ";
         cin >> vetor[*total].pesoAtual;
-        while(vetor[*total].pesoAtual > -1) {
-            cout << "Peso Invï¿½lida - Digite Novamente: ";
+        while(vetor[*total].pesoAtual < 0) {
+            cout << "Peso Invalida - Digite Novamente: ";
             cin >> vetor[*total].pesoAtual;
         }
         
-        cout << "\n Sexo do Animal ( M - Macho | F - Fï¿½mea ): ";
+        cout << "\n Sexo do Animal ( M - Macho | F - Fêmea ): ";
         cin >> vetor[*total].sexo;
+        vetor[*total].sexo = toupper(vetor[*total].sexo);
         
         while((vetor[*total].sexo != 'M') && (vetor[*total].sexo != 'F')) {
-            cout << "\n Sexo Invï¿½lido - Digite Novamente: ";
+            cout << "\n Sexo Invalida - Digite Novamente: ";
             cin >> vetor[*total].sexo;
+            vetor[*total].sexo = toupper(vetor[*total].sexo);
         }
-		vetor[*total].sexo = toupper(vetor[*total].sexo);
 		
         (*total)++;
         
     } else {
-        cout << "Vetor atingiu capacidade mï¿½xima";
+        cout << "Vetor atingiu capacidade máxima";
     }
 }
 
@@ -79,7 +80,7 @@ void listarRebanho(T_suino vetor[], int total) {
     // Cabeï¿½alho
     cout << left 
          << "| " << setw(7)  << "ID" 
-         << "| " << setw(9)  << "Raï¿½a" 
+         << "| " << setw(9)  << "Raca" 
          << "| " << setw(8)  << "Idade" 
          << "| " << setw(9)  << "Peso" 
          << "| " << setw(9)  << "Sexo" 
@@ -115,7 +116,7 @@ void atualizarAnimal(T_suino vetor[], int total) {
     cin >> idProcurado;
     result = buscarPorBrinco(vetor, total, idProcurado);
     if(result != -1)
-        cout << "Posiï¿½ï¿½o [" << result << "] do animal procurado" << endl; 
+        cout << "Posicao [" << result << "] do animal procurado" << endl; 
         cout << "Peso do animal " << vetor[result].pesoAtual << endl;
     cout << "Informe o valor do peso atualizado do animal: ";
     cin >> vetor[result].pesoAtual;
@@ -130,11 +131,11 @@ void menu() {
     do {
         cout << "================= Menu =================" << endl;
         cout << endl;
-        cout << "1 - Cadastro de Suï¿½no: " << endl;
-        cout << "2 - Relatï¿½rio de Suï¿½no: " << endl;
+        cout << "1 - Cadastro de Suino: " << endl;
+        cout << "2 - Relatorio de Suino: " << endl;
         cout << "3 - Pesquisa por ID: " << endl;
         cout << "4 - Atualizar Status de Peso: " << endl;
-        cout << "5 - Painel Estatï¿½stico: " << endl;
+        cout << "5 - Painel Estatistico: " << endl;
         cout << endl;
         cout << "========================================" << endl;
         cout << "\n Escolha: ";
@@ -152,7 +153,7 @@ void menu() {
                 cin >> idProcurado;
                 result = buscarPorBrinco(Animais, total, idProcurado);
                 if(result != -1)
-                    cout << "Posiï¿½ï¿½o [" << result << "] do animal procurado" << endl; 
+                    cout << "Posicao [" << result << "] do animal procurado" << endl; 
                 break;
             case 4: 
                 atualizarAnimal(Animais, total);
@@ -161,11 +162,11 @@ void menu() {
                 gerarPainelEstatistico(Animais, total);
                 break;
             default:
-                cout << "Opï¿½ï¿½o escolhida erra";
+                cout << "Opicao escolhida erra";
                 break;
         }
         
-        cout << "\n Deseja continuar (1 - SIM | 0 - Nï¿½O): ";
+        cout << "\n Deseja continuar (1 - SIM | 0 - NAO): ";
         cin >> continuar;
         system("cls");
     } while(continuar == 1);
@@ -174,9 +175,9 @@ void menu() {
 
 void gerarPainelEstatistico(T_suino vetor[], int total)
 {
-	cout << "========== Paï¿½nel Estatï¿½stico ==========" << endl;
+	cout << "========== Painel Estatistico ==========" << endl;
     cout << endl;
-    cout << "1 - Mï¿½dia de Peso por Sexo" << endl;
+    cout << "1 - Media de Peso por Sexo" << endl;
     cout << "------------------------------------" << endl;	
     
 	// Mï¿½dia Peso / Sexo
@@ -195,20 +196,20 @@ void gerarPainelEstatistico(T_suino vetor[], int total)
 	}   
 	if (somaM > 0) {
         mediaM = pesoM / somaM;
-        cout << "Mï¿½dia de Peso ( Machos ) = " << mediaM << " kg" << endl;
+        cout << "Media de Peso ( Machos ) = " << mediaM << " kg" << endl;
     } else {
-        cout << "Mï¿½dia de Peso ( Machos ) = Sem machos para calcular" << endl;
+        cout << "Media de Peso ( Machos ) = Sem machos para calcular" << endl;
     }
 
     if (somaF > 0) {
         mediaF = pesoF / somaF;
-        cout << "Mï¿½dia de Peso ( Fï¿½meas ) = " << mediaF << " kg" << endl;
+        cout << "Media de Peso ( Fêmeas ) = " << mediaF << " kg" << endl;
     } else {
-        cout << "Mï¿½dia de Peso ( Fï¿½meas ) = Sem fï¿½meas para calcular" << endl;
+        cout << "Media de Peso ( Fêmeas ) = Sem fï¿½meas para calcular" << endl;
     }
     cout << endl;
     cout << "\n ==========================================================" << endl;
-    cout << "2 - Porcentagem de Animais (Sexo / Raï¿½a) " << endl;
+    cout << "2 - Porcentagem de Animais (Sexo / Raca) " << endl;
     cout << "--------------------------------------------" << endl;
     
     // Sexo / Raï¿½a
@@ -236,16 +237,16 @@ void gerarPainelEstatistico(T_suino vetor[], int total)
         cout << "Machos - Duroc:       " << (durocM / total) * 100 << "%" << endl;
         cout << "Machos - Outras:      " << (outroM / total) * 100 << "%" << endl;
         cout << endl;
-        cout << "Fï¿½meas - Landrace:    " << (landraceF / total) * 100 << "%" << endl;
-        cout << "Fï¿½meas - Large White: " << (largeF / total) * 100 << "%" << endl;
-        cout << "Fï¿½meas - Duroc:       " << (durocF / total) * 100 << "%" << endl;
-        cout << "Fï¿½meas - Outras:      " << (outroF / total) * 100 << "%" << endl;
+        cout << "Femeas - Landrace:    " << (landraceF / total) * 100 << "%" << endl;
+        cout << "Femeas - Large White: " << (largeF / total) * 100 << "%" << endl;
+        cout << "Femeas - Duroc:       " << (durocF / total) * 100 << "%" << endl;
+        cout << "Femeas - Outras:      " << (outroF / total) * 100 << "%" << endl;
     } else {
         cout << "Sem animais cadastrados para calcular porcentagens." << endl;
     }
     
     cout << "\n ==========================================================" << endl;
-    cout << "3 - Identificaï¿½ï¿½o do Campeï¿½o em Peso " << endl;
+    cout << "3 - Identificacao do Campeao em Peso " << endl;
     cout << "--------------------------------------------" << endl;
     cout << endl;
     
@@ -255,10 +256,10 @@ void gerarPainelEstatistico(T_suino vetor[], int total)
 	    for(int i = 1; i < total; i++) {
 	    	if(vetor[i].pesoAtual > vetor[idxCampeao].pesoAtual) idxCampeao = i;
 		}
-		cout << "MAIOR PESO CADASTRADO - posiï¿½ï¿½o [" << idxCampeao << "]" << endl;
+		cout << "MAIOR PESO CADASTRADO - posicao [" << idxCampeao << "]" << endl;
 	    cout << left 
 	         << "| " << setw(7)  << "ID" 
-	         << "| " << setw(9)  << "Raï¿½a" 
+	         << "| " << setw(9)  << "Raca" 
 	         << "| " << setw(9)  << "Peso" 
 	         << "|" << endl;
 	
@@ -270,6 +271,6 @@ void gerarPainelEstatistico(T_suino vetor[], int total)
 	        << "| " << setw(9)  << vetor[idxCampeao].pesoAtual 
 	        << "|" << endl;
 	} else {
-		cout << "Nenhum animal cadastrado para identificar o campeï¿½o." << endl;
+		cout << "Nenhum animal cadastrado para identificar o campeao." << endl;
 	}
 }
